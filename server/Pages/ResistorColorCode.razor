@@ -1,0 +1,208 @@
+﻿@page "/resistor-color-code"
+
+<h3 class="container">Цветовая кодировка резисторов</h3>
+
+           
+        <div class="container" >
+            <p style="border:groove; padding:5px">Сопротивление: @valueString &plusmn @admission</p>
+        </div>
+    
+    
+<div class="container">
+    <div style="height:80px; width:auto; margin:0,auto">
+        <div style="float:left;  width:20px; height:5%; background-color:silver; margin-top:38px"> </div>
+        <div style="float:left;  width:60px; height:100%; background-color:burlywood; border-radius:30px 10px 10px 30px">
+            <div  style="float:left; width:20px; height: 100%; margin-left:30px; cursor:pointer; @colorLine1" @onclick="Line1Click"></div>
+            <div style=" height:auto; width:auto; margin-left:30px; margin-top:85px; border:groove; @viewColorPiscer1">
+                @foreach (var item in ColorCodeList)
+                {
+                    if (item.id !=11 && item.id != 12)
+                    {
+                        <div style="height:20px; width:auto; margin:3px; cursor:pointer; @item.stileString" @onclick="(()=>SelectColorLine1(item.stileString, item.value))" title="@item.colorName"></div>
+                    }
+                }
+            </div>
+        </div>
+        <div style="float:left;  width:40px; height:80%; background-color:burlywood; margin-top:8px">
+            <div id="Line2" style="float:left; width:20px; height: 100%; background-color:rebeccapurple; margin-left:10px; cursor:pointer; @colorLine2" @onclick="Line2Click"></div>
+            <div style=" height:auto; width:auto; margin-left:10px; margin-top:77px; border:groove; @viewColorPiscer2">
+                @foreach (var item in ColorCodeList)
+                {
+                    if (item.id != 11 && item.id != 12)
+                    {
+                        <div style="height:20px; width:auto; margin:3px; cursor:pointer; @item.stileString" @onclick="(()=>SelectColorLine2(item.stileString, item.value))" title="@item.colorName"></div>
+                    }
+                }
+            </div>
+        </div>
+        <div style="float:left;  width:40px; height:80%; background-color:burlywood; margin-top:8px">
+            <div id="Line3" style="float:left; width:20px; height: 100%; background-color:rebeccapurple; margin-left:10px; cursor:pointer; @colorLine3" @onclick="Line3Click"></div>
+            <div style=" height:auto; width:auto; margin-left:10px;  margin-top:77px; border:groove; @viewColorPiscer3">
+                @foreach (var item in ColorCodeList)
+                {
+                    if (item.id != 11 && item.id != 12)
+                    {
+                        <div style="height:20px; width:auto; margin:3px; cursor:pointer; @item.stileString" @onclick="(()=>SelectColorLine3(item.stileString, item.value))" title="@item.colorName"></div>
+                    }
+                }
+            </div>
+        </div>
+        <div style="float:left;  width:40px; height:80%; background-color:burlywood; margin-top:8px">
+            <div id="Line4" style="float:left; width:20px; height: 100%; background-color:rebeccapurple; margin-left:10px; cursor:pointer; @colorLine4" @onclick="Line4Click"></div>
+            <div style=" height:auto; width:auto; margin-left:10px; margin-top:77px; border:groove; border-bottom-color:black; @viewColorPiscer4">
+                @foreach (var item in ColorCodeList)
+                {
+                    if (item.id != 9 && item.id != 10)
+                    {
+                        <div style="height:20px; width:auto; margin:3px; cursor:pointer; @item.stileString" @onclick="(()=>SelectColorLine4(item.stileString, item.multiple))" title="@item.colorName"></div>
+                    }
+                }
+            </div>
+        </div>
+        <div style="float:left;  width:40px; height:80%; background-color:burlywood; margin-top:8px">
+            <div id="Line5" style="float:left; width:20px; height: 100%; background-color:rebeccapurple; margin-left:10px; cursor:pointer; @colorLine5" @onclick="Line5Click"></div>
+            <div style=" height:auto; width:auto; margin-left:10px; margin-top:77px; border:groove; @viewColorPiscer5">
+                @foreach (var item in ColorCodeList)
+                {
+                    if (item.id != 5 && item.id != 10 && item.id != 4)
+                    {
+                        <div style="height:20px; width:auto; margin:3px; cursor:pointer; @item.stileString" @onclick="(()=>SelectColorLine5(item.stileString, item.admission))" title="@item.colorName"></div>
+                    }
+                }
+            </div>
+        </div>
+        <div style="float:left;  width:60px; height:100%; background-color:burlywood; border-radius:10px 30px 30px 10px"></div>
+        <div style="float:left;  width:20px; height:5%; background-color:silver; margin-top:38px"> </div>
+    </div>
+</div>
+
+
+@code {
+    string colorLine1 = "background-color:black";
+    string colorLine2 = "background-color:black";
+    string colorLine3 = "background-color:black";
+    string colorLine4 = "background-color:black";
+    string colorLine5 = "background-color:black";
+    string viewColorPiscer1 = "visibility:collapse";
+    string viewColorPiscer2 = "visibility:collapse";
+    string viewColorPiscer3 = "visibility:collapse";
+    string viewColorPiscer4 = "visibility:collapse";
+    string viewColorPiscer5 = "visibility:collapse";
+    string admission = "20%";
+    double valueDoublt = 0;
+    string valueString = "0 Ом";
+    int value1 = 0;
+    int value2 = 0;
+    int value3 = 0;
+    double multple = 1;
+    void Line1Click()    {
+        viewColorPiscer1 = "visibility:visible";
+        viewColorPiscer2 = viewColorPiscer3 = viewColorPiscer4 = viewColorPiscer5 = "visibility:collapse";
+    }
+    void Line2Click()
+    {
+        viewColorPiscer2 = "visibility:visible";
+        viewColorPiscer1 = viewColorPiscer3 = viewColorPiscer4 = viewColorPiscer5 = "visibility:collapse";
+    }
+    void Line3Click()
+    {
+        viewColorPiscer3 = "visibility:visible";
+        viewColorPiscer1 = viewColorPiscer2 = viewColorPiscer4 = viewColorPiscer5 = "visibility:collapse";
+    }
+    void Line4Click()
+    {
+        viewColorPiscer4 = "visibility:visible";
+        viewColorPiscer1 = viewColorPiscer2 = viewColorPiscer3 = viewColorPiscer5 = "visibility:collapse";
+    }
+    void Line5Click()
+    {
+        viewColorPiscer5 = "visibility:visible";
+        viewColorPiscer1 = viewColorPiscer2 = viewColorPiscer3 = viewColorPiscer4 = "visibility:collapse";
+    }
+    void SelectColorLine1(string color, int value)
+    {
+        colorLine1 = color;
+        viewColorPiscer1 = "visibility:collapse";
+        value1 = value;
+        Calculate();
+    }
+    void SelectColorLine2(string color, int value)
+    {
+        colorLine2 = color;
+        viewColorPiscer2 = "visibility:collapse";
+        value2 = value;
+        Calculate();
+    }
+    void SelectColorLine3(string color, int value)
+    {
+        colorLine3 = color;
+        viewColorPiscer3 = "visibility:collapse";
+        value3 = value;
+        Calculate();
+    }
+    void SelectColorLine4(string color, double multiple)
+    {
+        colorLine4 = color;
+        viewColorPiscer4 = "visibility:collapse";
+        this.multple = multiple;
+        Calculate();
+    }
+    void SelectColorLine5(string color, string admission)
+    {
+        colorLine5 = color;
+        viewColorPiscer5 = "visibility:collapse";
+        this.admission = admission;
+    }
+    void Calculate()
+    {
+        valueDoublt = (value1 * 100 + value2 * 10 + value3) * multple;
+        valueString = valueDoublt.ToString() + " Ом";
+        if (valueDoublt >= 1000)
+        {
+            valueDoublt /= 1000;
+            valueString = valueDoublt.ToString() + " KOм";
+        }
+        if (valueDoublt >= 1000)
+        {
+            valueDoublt /= 1000;
+            valueString = valueDoublt.ToString() + " MOм";
+        }
+
+
+    }
+
+    List<ColorCodeModel> ColorCodeList = new List<ColorCodeModel>
+            {
+                new ColorCodeModel(1, "background-color:black", "Черный", 0, 1, ""),
+                new ColorCodeModel(2, "background-color:brown", "Коричневый", 1, 10, "1%"),
+                new ColorCodeModel(3, "background-color:red", "Красный", 2, 100, "2%"),
+                new ColorCodeModel(4, "background-color:orange", "Оранжевый", 3, 1000, ""),
+                new ColorCodeModel(5, "background-color:yellow", "Желтый", 4, 10000, ""),
+                new ColorCodeModel(6, "background-color:green", "Зеленый", 5, 100000, "0,5%"),
+                new ColorCodeModel(7, "background-color:blue", "Голубой", 6, 1000000, "0,25%"),
+                new ColorCodeModel(8, "background-color:violet", "Фиолетовый", 7, 10000000, "0,1%"),
+                new ColorCodeModel(9, "background-color:gray", "Серый", 8, 0, "0,05%"),
+                new ColorCodeModel(10, "background-color:white", "Белый", 9, 0, ""),
+                new ColorCodeModel(11, "background-color:gold", "Золотой", 0, 0.1, "5%"),
+                new ColorCodeModel(12, "background-color:silver", "Серебрянный", 0, 0.01, "10%")
+
+            };
+    class ColorCodeModel
+    {
+        public int id { get; set; }
+        public string stileString { get; set; }
+        public string colorName { get; set; }
+        public int value { get; set; }
+        public double multiple { get; set; }
+        public string admission{ get; set; }
+        public ColorCodeModel(int id, string stileString, string colorName, int value, double multiple, string admission)
+        {
+            this.id = id;
+            this.stileString = stileString;
+            this.colorName = colorName;
+            this.value = value;
+            this.multiple = multiple;
+            this.admission = admission;
+        }
+    }
+}

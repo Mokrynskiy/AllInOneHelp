@@ -1,0 +1,11 @@
+D:\WebProjects\AllInOneHelp\Components\bin\Debug\netstandard2.0\Components.deps.json
+D:\WebProjects\AllInOneHelp\Components\bin\Debug\netstandard2.0\Components.dll
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\Components.csprojAssemblyReference.cache
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\Components.AssemblyInfoInputs.cache
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\Components.AssemblyInfo.cs
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\Components.RazorComponent.input.cache
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\RazorDeclaration\Component1.razor.g.cs
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\RazorDeclaration\_Imports.razor.g.cs
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\Components.RazorTargetAssemblyInfo.cache
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\staticwebassets\Components.StaticWebAssets.Manifest.cache
+D:\WebProjects\AllInOneHelp\Components\obj\Debug\netstandard2.0\staticwebassets\Components.StaticWebAssets.xml

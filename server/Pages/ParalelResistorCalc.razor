@@ -1,0 +1,131 @@
+﻿@page "/paralel-resistor-calc"
+@layout MainLayout
+@using Radzen
+@using Radzen.Blazor
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenHeading Size="H2" Text="Расчет паралельных сопротивлений">
+        </RadzenHeading>
+        <RadzenDataList WrapItems="true" AllowPaging="true" Data="@ResistorRows">
+            <Template Context="resistorNominals">
+                <RadzenCard>
+                    <div class="row">
+                        <RadzenLabel Text="Резистор № " Style="margin:3px" />
+                        <RadzenLabel Text="@resistorNominals.Id.ToString()" Style="margin:3px" />
+                        <RadzenTextBox @bind-Value="@resistorNominals.Nominal" Style="margin-left:3px; margin-right:3px" />
+                        <RadzenDropDown @bind-Value="@resistorNominals.quoteId" Data="@Quotes" TextProperty="Name" ValueProperty="Id" Name="Quote" Style="width:70px">
+                        </RadzenDropDown>
+                    </div>
+                </RadzenCard>
+            </Template>
+        </RadzenDataList>
+        <div>
+            <RadzenButton Click="AddResistor" Icon="add" Style="margin:3px" ButtonStyle="ButtonStyle.Primary" Title="Добавить резистор" />
+            <RadzenButton Click="DeleteResistor" Disabled="@ActivDeleteButton" Icon="remove" Style="margin:3px" ButtonStyle="ButtonStyle.Primary" Title="Уралить резистор" />
+        </div>
+        <RadzenButton Click="Calculate" Text="Расчитать" Icon="functions" Style="margin:3px" ButtonStyle="ButtonStyle.Primary" Title="Расчитать сопротивление" />
+        <RadzenCard>
+            <div class="row">
+                <RadzenLabel Text="Расчетное сопротивление =" Style="margin:4px"></RadzenLabel>
+                <RadzenLabel Text="@RezSum.ToString()" Style="margin:4px"></RadzenLabel>
+                <RadzenDropDown @bind-Value="ResultQuote" Data="@Quotes" TextProperty="Name" ValueProperty="Id" Name="Quote" Style="width:70px" Change="CorrectRezSum"></RadzenDropDown>
+            </div>
+
+        </RadzenCard>
+    </ChildContent>
+</RadzenContent>
+@code
+{ public class ResistorRow
+    {
+        public int Id { get; set; }
+        public string Nominal { get; set; }
+        public int? quoteId { get; set; }
+    }
+    public class Quote
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+    List<Quote> Quotes = new List<Quote>()
+{
+        new Quote{Id=1, Name="Ом"},
+        new Quote{Id=2, Name="кОм"},
+        new Quote{Id=3, Name="МОм"},
+    };
+    List<ResistorRow> ResistorRows = new List<ResistorRow>()
+{
+        new ResistorRow{Id=1, Nominal="0", quoteId=1},
+        new ResistorRow{Id=2, Nominal="0", quoteId=1}
+    };
+
+    private double RezSum = 0;
+    private double RezSumOm = 0;
+    private bool ActivDeleteButton = true;
+    private int ResultQuote = 1;
+
+    private void Calculate()
+    {
+        RezSumOm = 0;
+        foreach (var item in ResistorRows)
+        {
+
+            switch (item.quoteId)
+            {
+                case 1:
+                    RezSumOm += 1 / double.Parse(item.Nominal);
+                    break;
+                case 2:
+                    RezSumOm += 1 / double.Parse(item.Nominal) / 1000;
+                    break;
+                case 3:
+                    RezSumOm += 1 / double.Parse(item.Nominal) / 1000 / 1000;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        RezSumOm = 1 / RezSumOm;
+        CorrectRezSum();
+    }
+    private void AddResistor()
+    {
+        ResistorRows.Add(new ResistorRow() { Id = ResistorRows.Count + 1, Nominal = "0", quoteId = 1 });
+        if (ResistorRows.Count > 2)
+        {
+            ActivDeleteButton = false;
+        }
+    }
+    private void DeleteResistor()
+    {
+        if (ResistorRows.Count > 2)
+        {
+            ResistorRows.Remove(ResistorRows.Last());
+        }
+        if (ResistorRows.Count <= 2)
+        {
+            ActivDeleteButton = true;
+        }
+
+    }
+    private void CorrectRezSum()
+    {
+        switch (ResultQuote)
+        {
+            case 1:
+                RezSum = RezSumOm;
+                break;
+            case 2:
+                RezSum = RezSumOm / 1000;
+                break;
+            case 3:
+                RezSum = RezSumOm / 1000 / 1000;
+                break;
+
+            default:
+                break;
+        }
+    } }
+
+
+
